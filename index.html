@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script type="text/javascript" lang="javascript" src="https://cdns.gigya.com/JS/socialize.js?apikey=3_cQkWA59GszKEVKtE0704hqQMGhjNH99ZgJKSpVxonDSA5IE4mVsiPO32QQKPStMo">
+			{
+				// Global configuration object for Gigya JS API methods
+				"sessionExpiration" :0, // expire the user login session when the browser closes
+				deviceType: 'auto' // Automatically identify the device mobile/desktop (using user-agent)
+			}
+		</script>
+		<script type="text/javascript" lang="javascript">
+			function showSearchInfo(response) {
+				document.getElementById('UID').value = JSON.stringify(response);
+			}
+			
+			function getUID(){
+				var username = document.getElementById('username').value
+				var searchParams = {
+				query: "SELECT UID FROM accounts WHERE username='"+username+"'",
+				querySig: querySigServer,
+				expTime: expTimeServer,
+				callback: showSearchInfo
+				};
+				gigya.accounts.search(searchParams);
+			}
+		</script>
+		<div>
+			<input type="text" id="username">
+			<button onclick="getUID()">Get the UID</button>
+			<p id="UID"></p>
+		</div>
+	</body>
+</html>
